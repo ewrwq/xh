@@ -1,0 +1,25 @@
+# app/config/security.yml
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface:
+            algorithm: bcrypt
+            cost: 10
+
+    providers:
+        fos_user:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        main:
+            pattern: ^/
+            anonymous: ~
+            form_login:
+                provider: fos_user
+                csrf_provider: form.csrf_provider
+            logout:       true
+
+    access_control:
+         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/admin/, role: ROLE_ADMIN }

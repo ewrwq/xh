@@ -1,0 +1,68 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrator
+ * Date: 2015/9/29
+ * Time: 15:15
+ */
+namespace Xiehe\WebBundle\Entity;
+use FOS\UserBundle\Model\Group as BaseGroup;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="group")
+ */
+class Group extends BaseGroup
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\generatedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="user",mappedBy="groups")
+     */
+    protected $users;
+
+
+    public function __construct() {
+        parent::__construct();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add users
+     *
+     * @param \Xiehe\WebBundle\Entity\user $users
+     * @return Group
+     */
+    public function addUser(\Xiehe\WebBundle\Entity\user $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \Xiehe\WebBundle\Entity\user $users
+     */
+    public function removeUser(\Xiehe\WebBundle\Entity\user $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+}

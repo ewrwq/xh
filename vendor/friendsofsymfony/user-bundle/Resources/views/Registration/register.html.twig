@@ -1,0 +1,24 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{#--定制表格样式--start--#}
+{% form_theme form _self %}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    <input class="form-control" type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple -%}
+
+{%- block form_row -%}
+    <div class="form-group">
+        {{- form_label(form) -}}
+        {{- form_errors(form) -}}
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock form_row -%}
+{#--定制表格样式--end--#}
+
+{% block body_center %}
+    <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="">
+        {{ form_row(form) }}
+    </form>
+{% endblock %}

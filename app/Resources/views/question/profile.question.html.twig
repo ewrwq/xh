@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block title %}Show Question!{% endblock %}
+{% block body %}
+    <h1>question:</h1>
+    id:{{ entity.id }}
+    title:{{ entity.title }}
+    text:{{ entity.text }}
+    create_time:{{ entity.createTime }}
+    original_edition_id:{{ entity.originalEditionId }}
+{% endblock %}

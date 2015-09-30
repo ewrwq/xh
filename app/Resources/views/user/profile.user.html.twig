@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% block title %}Show User Profile!{% endblock %}
+{% block body %}
+    <h1>user profile:</h1>
+    name:{{ entity.name }}
+    nickName:{{ entity.nickname }}
+    id:{{ entity.id }}
+    email:{{ entity.email }}
+{% endblock %}

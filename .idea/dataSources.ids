@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - 115" uuid="54bbfe09-c0d9-4469-a651-889b38169085">
+    <database-info product="MySQL" version="5.5.44-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="symfony"/>
+    <table name="Classification" schema="" catalog="symfony" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name_cn" sqlType="VARCHAR" precision="10" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name_en" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="father" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_AD4B47C82A86559F" table="question_classification" schema="" catalog="symfony" columns="classification_id"/>
+    </table>
+    <table name="answer" schema="" catalog="symfony" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="text" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="original_edition_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="creater_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_DADD4A251E27F6BF" columns="question_id" ref-table="question" ref-schema="" ref-catalog="symfony" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_DADD4A252B921607" columns="creater_id" ref-table="user" ref-schema="" ref-catalog="symfony" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_9474526CAA334807" table="comment" schema="" catalog="symfony" columns="answer_id"/>
+      <index name="IDX_DADD4A251E27F6BF" unique="false" columns="question_id"/>
+      <index name="IDX_DADD4A252B921607" unique="false" columns="creater_id"/>
+    </table>
+    <table name="comment" schema="" catalog="symfony" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="answer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="text" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_9474526CAA334807" columns="answer_id" ref-table="answer" ref-schema="" ref-catalog="symfony" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="IDX_9474526CAA334807" unique="false" columns="answer_id"/>
+    </table>
+    <table name="hospital" schema="" catalog="symfony" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="location" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="15" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_8D93D64963DBB69" table="user" schema="" catalog="symfony" columns="hospital_id"/>
+    </table>
+    <table name="question" schema="" catalog="symfony" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="text" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="original_edition_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="creater_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_B6F7494E2B921607" columns="creater_id" ref-table="user" ref-schema="" ref-catalog="symfony" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_DADD4A251E27F6BF" table="answer" schema="" catalog="symfony" columns="question_id"/>
+      <exported-key name="FK_AD4B47C81E27F6BF" table="question_classification" schema="" catalog="symfony" columns="question_id"/>
+      <index name="IDX_B6F7494E2B921607" unique="false" columns="creater_id"/>
+    </table>
+    <table name="question_classification" schema="" catalog="symfony" type="TABLE">
+      <column name="question_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="classification_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="question_id,classification_id"/>
+      <foreign-key name="FK_AD4B47C82A86559F" columns="classification_id" ref-table="Classification" ref-schema="" ref-catalog="symfony" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <foreign-key name="FK_AD4B47C81E27F6BF" columns="question_id" ref-table="question" ref-schema="" ref-catalog="symfony" ref-columns="id" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="IDX_AD4B47C81E27F6BF" unique="false" columns="question_id"/>
+      <index name="IDX_AD4B47C82A86559F" unique="false" columns="classification_id"/>
+    </table>
+    <table name="user" schema="" catalog="symfony" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="password" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="name" sqlType="CHAR" precision="5" scale="0" nullable="false" jdbcType="1"/>
+      <column name="nickname" sqlType="CHAR" precision="10" scale="0" nullable="false" jdbcType="1"/>
+      <column name="hospital_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_8D93D64963DBB69" columns="hospital_id" ref-table="hospital" ref-schema="" ref-catalog="symfony" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK_DADD4A252B921607" table="answer" schema="" catalog="symfony" columns="creater_id"/>
+      <exported-key name="FK_B6F7494E2B921607" table="question" schema="" catalog="symfony" columns="creater_id"/>
+      <index name="UNIQ_8D93D64963DBB69" unique="true" columns="hospital_id"/>
+    </table>
+  </data-source>
+</component>
