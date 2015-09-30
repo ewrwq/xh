@@ -31,3 +31,7 @@
     margin:0px;
     text-align: center;
 }
+.error-text{
+    color: #ff211e;
+    font-size: 20px;
+}
